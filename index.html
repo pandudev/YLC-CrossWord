@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0,user-scalable=0"
+    />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <title>Crossword</title>
+    <meta name="keywords" content="html5 crossword" />
+    <meta name="description" content="html5 crossword" />
+
+    <!-- <link rel="stylesheet" type="text/css" href="css/materialize.min.css" /> -->
+    <link rel="stylesheet" type="text/css" href="css/styles.css" />
+    <link rel="stylesheet" type="text/css" href="css/new-styles.css" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+
+    <script type="text/javascript" src="js/easeljs-0.7.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+
+    <script type="text/javascript" src="js/iscroll.js"></script>
+    <script type="text/javascript" src="js/crossword.js"></script>
+    <script type="text/javascript" src="js/materialize.js"></script>
+  </head>
+  <body ondragstart="return false">
+    <div id="rotate" class="rotate"></div>
+
+    <div id="content">
+      <div id="loader" class="center">
+        <div class="preloader-wrapper big active">
+          <div class="spinner-layer spinner-blue">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div>
+            <div class="gap-patch">
+              <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+
+          <div class="spinner-layer spinner-red">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div>
+            <div class="gap-patch">
+              <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+
+          <div class="spinner-layer spinner-yellow">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div>
+            <div class="gap-patch">
+              <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+
+          <div class="spinner-layer spinner-green">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div>
+            <div class="gap-patch">
+              <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="intro">
+        <header id="header" class="header">
+          <nav class="header-wrapper header-wrapper-intro flex-h">
+            <p class="game-title">CrossWord</p>
+          </nav>
+        </header>
+
+        <div id="tools" class="tools flex-h">
+          <div class="action-intro flex-h">
+            <button id="btn_intro_menu_setting">
+              <img src="./images/button_setting.png" alt="Setting" />
+            </button>
+          </div>
+        </div>
+
+        <div class="intro-content">
+          <div class="intro-logo">
+            <img src="./images/crossword-logo.png" alt="CrossWord" />
+            <img src="./images/YLC-logo.png" alt="CrossWord" />
+          </div>
+
+          <button id="btn_start" class="btn-start">
+            <img src="./images/button_start.png" alt="" />
+          </button>
+        </div>
+      </div>
+
+      <div id="crossword">
+        <header id="header" class="header">
+          <nav class="header-wrapper flex-h">
+            <button id="reload">
+              <div class="icon-wrapper">
+                <img src="./images/icon/back.png" alt="Back" />
+              </div>
+            </button>
+            <p class="game-title">CrossWord</p>
+            <button id="btn_menu_clear">
+              <div class="icon-wrapper flex-h">
+                <img src="./images/icon/reset.png" alt="Pause" />
+                <p class="icon-text">reset</p>
+              </div>
+            </button>
+          </nav>
+        </header>
+
+        <div id="tools" class="tools flex-h">
+          <div class="timer">
+            <button id="timer-button" class="btn btn--timer flex-h">
+              <div class="timer-count-wrapper flex-c">
+                <p class="timer-count">
+                  <span id="hour">00</span>:<span id="mins">00</span>:<span
+                    id="sec"
+                    >00</span
+                  >
+                </p>
+              </div>
+              <div class="icon-wrapper flex-c">
+                <img
+                  class="timer-icon"
+                  src="./images/icon/pause.png"
+                  alt="Pause"
+                />
+              </div>
+            </button>
+          </div>
+          <div class="game-hint">
+            <div class="game-hint-wrapper flex-c">
+              <img
+                class="game-hint-icon"
+                src="./images/icon/hint-alert.png"
+                alt="hint"
+              />
+              <p id="header_clue" class="game-hint-text"></p>
+            </div>
+          </div>
+          <div class="action flex-h">
+            <button id="btn_menu_check_trigger">
+              <img src="./images/check.png" alt="Check" />
+            </button>
+            <button id="btn_menu_reveal_letter">
+              <img src="./images/hint.png" alt="Hint" />
+            </button>
+            <button id="btn_menu_setting">
+              <img src="./images/button_setting.png" alt="Setting" />
+            </button>
+            <div class="action-hover">
+              <button id="btn_menu_check" class="btn modal-btn-small">
+                CHECK WORD
+              </button>
+              <button id="reveal_word" class="btn modal-btn-small">
+                SOLVE WORD
+              </button>
+            </div>
+            <div class="action-hover-setting">
+              <button class="hover-btn">
+                <img src="./images/sound-on.png" alt="Sound On" />
+              </button>
+              <button class="hover-btn">
+                <img src="./images/text-large.png" alt="Text Large" />
+              </button>
+              <button class="hover-btn">
+                <img src="./images/text-small.png" alt="Text Small" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div id="game_view">
+          <div id="game">
+            <div id="board">
+              <div id="dragger">
+                <input
+                  type="text"
+                  id="key_interceptor"
+                  maxlength="1"
+                  size="1"
+                  title=""
+                />
+                <canvas id="crossword_canvas"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="clue_list">
+          <div id="across_container" class="clue_list_wrapper">
+            <div id="across_label" class="clue_list_label flex-c"></div>
+            <div id="across_list">
+              <ul id="across_list_ul"></ul>
+            </div>
+          </div>
+
+          <div id="down_container" class="clue_list_wrapper">
+            <div id="down_label" class="clue_list_label flex-c"></div>
+            <div id="down_list">
+              <ul id="down_list_ul"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="result">
+        <header id="header" class="header">
+          <nav class="header-wrapper header-wrapper-intro flex-h">
+            <p class="game-title">CrossWord</p>
+          </nav>
+        </header>
+        <div class="result-content">
+          <div class="result-logo">
+            <img src="./images/crossword-logo.png" alt="CrossWord" />
+            <img src="./images/YLC-logo.png" alt="CrossWord" />
+          </div>
+
+          <div class="scoreboard-wrapper">
+            <div class="scoreboard">
+              <div class="scorewrapper">
+                <img src="./images/icon/trophy.svg" alt="" />
+                <div class="score">
+                  <p>Your Score:</p>
+                  <p class="point">1000</p>
+                </div>
+                <img src="./images/icon/trophy.svg" alt="" />
+              </div>
+              <div class="timewrapper">
+                <p>Time</p>
+                <p class="timeresult"></p>
+              </div>
+              <div class="share">
+                <p>Share to:</p>
+                <div class="social">
+                  <img src="./images/button_facebook.png" alt="" />
+                  <img src="./images/button_twitter.png" alt="" />
+                  <img src="./images/button_whatsapp.png" alt="" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button id="restart" class="btn-start">
+            <img src="./images/button_restart.png" alt="" />
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="pause-modal" class="pause-modal flex-v">
+      <div class="modal-title">Game Paused</div>
+      <div class="modal-btn-wrapper flex-v">
+        <button id="continue-button" class="modal-btn">
+          <img src="./images/button_continue.png" alt="" />
+        </button>
+        <button id="surrender-button" class="modal-btn">
+          <img src="./images/button_surrender.png" alt="" />
+        </button>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="js/timer.js"></script>
+    <script type="text/javascript" src="js/custom.js"></script>
+  </body>
+</html>
