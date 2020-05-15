@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Spartan:wght@300;400;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Bangers&display=swap");
+@import url("//db.onlinewebfonts.com/c/79f12f40967a6371bc5b83c1584fb017?family=BadaBoom+BB");
 
 body {
   font-family: "Spartan", sans-serif;
@@ -17,6 +17,9 @@ a {
   cursor: pointer;
 }
 
+.mb {
+  margin-bottom: 1rem;
+}
 .flex-v {
   display: flex;
   flex-direction: column;
@@ -33,32 +36,18 @@ a {
   align-items: center;
 }
 
-.btn {
-  border: none;
-  cursor: pointer;
-  height: 60px;
-  width: 60px;
-  border-radius: 10px;
-  padding: 5px;
-  position: relative;
-  transition: transform 150ms ease;
-}
-
-/* .btn:active {
-  transform: scale(0.99);
-} */
-
 .game-hint {
-  display: none;
+  opacity: 0;
   height: 60px;
   width: 400px;
   border-radius: 10px;
   background-color: #fab837;
   padding: 5px;
+  transition: opacity 0.2s ease;
 }
 
 .game-hint.show {
-  display: block;
+  opacity: 100;
 }
 .game-hint-wrapper {
   padding: 0 10px;
@@ -76,25 +65,111 @@ a {
   font-weight: bold;
   word-wrap: break-word;
 }
+
+.btn {
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  padding: 5px;
+  position: relative;
+  transition: transform 150ms ease;
+}
+
+.btn:active {
+  transform: scale(0.99);
+}
+
+.btn--action {
+  background-color: #fab837;
+  box-shadow: 0px 5px 0px #d1941c;
+  width: 200px;
+  height: 65px;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn--action > svg {
+  display: flex;
+  position: absolute;
+  width: 210px;
+  height: 75px;
+}
+
+.btn--action > svg > path {
+  fill: rgba(255, 255, 255, 0.3);
+}
+
+.btn--action-text {
+  font-size: 40px;
+  color: #ffffff;
+  text-transform: uppercase;
+  position: absolute;
+  font-family: "BadaBoom BB";
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #d1941c;
+}
+
 .btn--timer {
   width: 170px;
   align-items: center;
   justify-content: space-between;
   background-color: #ffffff;
+  box-shadow: 0px 5px 0px #bdbdbd;
 }
 
 .btn--check,
-.btn--hint {
+.btn--hint,
+.btn--hover {
   background-color: #fab837;
+  box-shadow: 0px 5px 0px #d1941c;
+}
+
+.btn--hover {
+  margin-bottom: 10px;
+}
+
+.btn--hover-check {
+  height: 60px;
+  width: 140px;
+  font-size: 15px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: white;
+  text-align: center;
 }
 
 .btn--setting {
   background-color: #ed1b33;
+  box-shadow: 0px 5px 0px #cb1025;
 }
 
-.btn-icon {
-  width: auto;
-  height: 30px;
+.btn--icon {
+  width: 60px;
+  height: 60px;
+  position: relative;
+  z-index: 3;
+}
+
+.btn--social > img {
+  height: 25px;
+}
+
+.btn--social {
+  width: 40px;
+  height: 40px;
+}
+
+.btn--facebook {
+  background-color: #3b5998;
+  box-shadow: 0px 5px 0px #335192;
+}
+.btn--twitter {
+  background-color: #00acee;
+  box-shadow: 0px 5px 0px #0091c9;
+}
+.btn--whatsapp {
+  background-color: #25d366;
+  box-shadow: 0px 5px 0px #17a94e;
 }
 
 .header {
@@ -135,19 +210,6 @@ a {
   z-index: 10;
 }
 
-.timer::before {
-  position: absolute;
-  content: "";
-  z-index: -1;
-  width: 100%;
-  border-radius: 10px;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: -5px;
-  background-color: #bdbdbd;
-}
-
 .timer-count-wrapper {
   width: 120px;
   height: 50px;
@@ -167,17 +229,17 @@ a {
 }
 
 .timer-icon {
-  height: 40px;
-  width: 40px;
+  height: 20px;
+  width: 20px;
 }
 
 .timer-icon.paused {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
 }
 
 .action {
-  flex-basis: 200px;
+  flex-basis: 230px;
   justify-content: space-between;
   position: relative;
 }
@@ -188,27 +250,25 @@ a {
 }
 
 .action-hover {
-  top: -1000px;
-  height: 100px;
+  top: -1300px;
+  height: 500px;
   position: absolute;
   z-index: 90;
   transition: top 0.3s ease;
 }
 
-.action-hover-setting {
+.action-hover--check {
+}
+
+.action-hover--setting {
   right: 0;
-  top: -1000px;
-  height: 100px;
-  position: absolute;
-  z-index: 90;
-  transition: top 0.3s ease;
   display: flex;
   flex-direction: column;
 }
 
-.action-hover.show,
-.action-hover-setting.show {
-  top: 70px;
+.action-hover--check.show,
+.action-hover--setting.show {
+  top: 80px;
 }
 
 .action > button > img {
@@ -226,7 +286,8 @@ a {
 }
 
 #board {
-  background-color: transparent !important;
+  width: 50%;
+  background-color: white !important;
   top: 150px !important;
   left: 25%;
   /* display: none; */
@@ -245,8 +306,15 @@ a {
   }
 
   #content {
-    max-width: 1024px;
+    max-width: 100%;
   }
+}
+
+.clue_text {
+  font-size: 16px;
+  line-height: 24px;
+  padding-left: 5px;
+  display: block;
 }
 
 #clue_list {
@@ -254,7 +322,9 @@ a {
   display: flex;
   justify-content: space-between;
   top: 150px;
-  height: 100%;
+  height: calc(100vh - 150px);
+  /* hei */
+  /* height: 100%; */
 }
 
 .clue_list_wrapper {
@@ -264,7 +334,7 @@ a {
 
 .clue_list_label {
   font-weight: bold;
-  height: 40px;
+  height: 60px;
   font-size: 18px;
   text-align: center;
 }
@@ -275,7 +345,7 @@ a {
 
 #across_list,
 #down_list {
-  top: 40px;
+  top: 60px;
 }
 
 #crossword {
@@ -325,7 +395,6 @@ a {
 }
 
 .modal-btn-small {
-  font-family: "Bangers", cursive;
   width: 130px;
   height: 65px;
   background-color: #fab837;
@@ -349,15 +418,17 @@ a {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  justify-content: space-around;
 }
 
 .intro-logo {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  margin-bottom: 2rem;
 }
 
-.btn-start {
+.btn--start {
   margin-top: 2rem;
 }
 
@@ -396,18 +467,19 @@ a {
 .scoreboard-wrapper {
   background-color: #33bedc;
   width: 520px;
-  height: 400px;
+  height: 380px;
   border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 1rem;
 }
 
 .scoreboard {
   border-radius: 10px;
   background-color: #ffffff;
   width: 500px;
-  height: 380px;
+  height: 360px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -453,9 +525,7 @@ p.timeresult {
 }
 
 .social {
+  width: 250px;
   margin-top: 1rem;
-}
-
-.social > img {
-  margin: 0 1rem;
+  justify-content: space-between;
 }

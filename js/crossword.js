@@ -87,9 +87,9 @@ function selectFirstWord() {
 
 function centerBoard() {
   var left = (board.width() - dragger.width()) / 2;
-  dragger.css("left", Math.round(left));
+  dragger.css("left", left);
   var top = (board.height() - dragger.height()) / 2;
-  // dragger.css("top", Math.round(top));
+  dragger.css("top", Math.round(top));
   dragger.css("top", 0);
 }
 
@@ -292,7 +292,7 @@ function setLabels() {
 
   $("#help_text").html(puzzle.labels.help_text);
   $("#help_title").html(puzzle.labels.help_title);
-  $(".game_title").html(puzzle.labels.game_title);
+  $(".game-title").html(puzzle.labels.game_title);
   $("#btn_dialog_close").html(puzzle.labels.button_label_dialog_close);
 
   $("#across_label").html(puzzle.labels.across);
@@ -307,6 +307,7 @@ function setLabels() {
 
   $("#reveal_letter").html(puzzle.labels.reveal_letter);
   $("#reveal_word").html(puzzle.labels.reveal_word);
+  $("#check_word").html(puzzle.labels.check_word);
   $("#submit").html(puzzle.labels.submit_answer);
 }
 
@@ -356,13 +357,20 @@ function resize() {
 }
 
 function showSuccess() {
-  $("#key_interceptor").blur();
+  console.log("finished");
+  pause();
+  $("#crossword").hide();
+  $("#pause-modal").removeClass("show");
+  $("#result").show();
+  console.log($(".timeresult"));
+  alert(puzzle.labels.congrat_title);
+  // $("#key_interceptor").blur();
 
-  $("#modal3").openModal();
+  // $("#modal3").openModal();
 
-  setTimeout(function () {
-    $(".check").attr("class", "check check-complete");
-  }, 500);
+  // setTimeout(function () {
+  //   $(".check").attr("class", "check check-complete");
+  // }, 500);
 }
 
 function setupClueLists() {
@@ -602,9 +610,6 @@ function selectClue(clue, resizing) {
     $(".game-hint").removeClass("show");
   }
 
-  console.log(selectedCell);
-
-  $(".game-hint").addClass("show");
   $("#header_clue").html(getClueByNumber(selectedWord));
 }
 
@@ -833,29 +838,33 @@ function setEvents() {
     //}, 1000);
   });
 
-  $("#reveal_letter").click(function (e) {
-    $("#modal2").closeModal();
+  // $("#reveal_letter").click(function (e) {
+  //   $("#modal2").closeModal();
 
-    setTimeout(function () {
-      revealCurrentSquare(false);
+  //   setTimeout(function () {
+  //     revealCurrentSquare(false);
 
-      if (selectedCell) {
-        setTimeout(showCluePopup, 1000);
-      }
-    }, 500);
-  });
+  //     if (selectedCell) {
+  //       setTimeout(showCluePopup, 1000);
+  //     }
+  //   }, 500);
+  // });
 
-  $("#reveal_word").click(function (e) {
-    $("#modal2").closeModal();
+  // $("#btn_menu_reveal_word").click(function (e) {
+  //   $("#modal2").closeModal();
 
-    setTimeout(function () {
-      revealCurrentWord(false);
-    }, 500);
-  });
+  //   setTimeout(function () {
+  //     revealCurrentWord(false);
+  //   }, 500);
+  // });
 
   $("#btn_menu_check").click(function () {
     // $(".fixed-action-btn").closeFAB();
     checkEntireGrid();
+  });
+
+  $("#btn_menu_show_hint").click(function (e) {
+    $("#game-hint").addClass("show");
   });
 
   $("#btn_menu_reveal_letter").click(function (e) {
@@ -938,8 +947,15 @@ function getClueByNumber(w) {
     }*/
 }
 
+function getCorrectLetter() {
+  return solvedState[selectedCell.gridX][
+    selectedCell.gridY
+  ].letter.toUpperCase();
+}
+
 function setLetter(letter, focusNextCell) {
   if (selectedCell) {
+    selectedCell.showWritten(true);
     selectedCell.setSelected(false);
     selectedCell.letter = letter;
     selectedCell.ripple();
@@ -949,7 +965,6 @@ function setLetter(letter, focusNextCell) {
     cacheCurrentGridState();
 
     var gameFinished = trackCorrectAnswers();
-
     if (!gameFinished) {
       if (supportsTouch()) {
         if (selectedCell == selectedCells[selectedCells.length - 1]) {
@@ -1142,6 +1157,7 @@ function clearEntireGrid() {
       if (cellMap[x][y]) {
         cellMap[x][y].letter = "";
         cellMap[x][y].showIncorrect(false);
+        cellMap[x][y].showWritten(false);
         cellMap[x][y].update();
       }
     }
@@ -1158,8 +1174,10 @@ function checkEntireGrid() {
           cellMap[x][y].letter != solvedState[x][y].letter.toUpperCase()
         ) {
           cellMap[x][y].showIncorrect(true);
+          cellMap[x][y].showWritten(false);
         } else {
           cellMap[x][y].showIncorrect(false);
+          cellMap[x][y].showWritten(true);
         }
     }
   }
@@ -1208,14 +1226,17 @@ function Cell(number, x, y) {
   this.highlightBg.visible = false;
   this.selectBg.visible = false;
 
-  this.incorrectBg = paintTriangle(puzzle.settings.wrong_cell_color);
+  this.incorrectBg = paint(puzzle.settings.wrong_cell_color);
+  this.writtenBg = paint(puzzle.settings.written_cell_color);
   this.addChild(this.incorrectBg);
+  this.addChild(this.writtenBg);
   this.incorrectBg.visible = false;
+  this.writtenBg.visible = false;
 
   this.letter = "";
   this.letterText = new createjs.Text(
     this.letter,
-    "bold 20px Arial",
+    "bold 20px Spartan MB",
     puzzle.settings.letter_color
   );
 
@@ -1235,8 +1256,6 @@ function Cell(number, x, y) {
   var thisCell = this;
 
   this.onClick = function (e) {
-    console.log("click");
-    console.log(thisCell, e);
     cellClicked(thisCell, e);
   };
   this.addEventListener("click", this.onClick, false);
@@ -1270,6 +1289,10 @@ function Cell(number, x, y) {
     if (this.letterText.text) {
       this.incorrectBg.visible = show;
     }
+  };
+
+  this.showWritten = function (show) {
+    this.writtenBg.visible = show;
   };
 
   this.ripple = function () {
@@ -1353,7 +1376,7 @@ function Cell(number, x, y) {
     shape.graphics.endFill();
 
     shape.graphics.setStrokeStyle(1);
-    shape.graphics.beginStroke("#393939");
+    shape.graphics.beginStroke(puzzle.settings.cell_stroke_color);
     shape.graphics.moveTo(0, 0);
     shape.graphics.lineTo(0, cellSize.width);
 

@@ -141,12 +141,14 @@
     "alphabet": "ABCÇDEFGHIİJKLMNOÖPQRSŞTUÜVWXYZabcçdefghıijklmnoöpqrsştuüvwxyz",
     "cell_highlight_color": "#FFCD6C",
     "selected_cell_color": "#FAB837",
-    "letter_cell_color": "#DDDDDD",
-    "empty_cell_color": "#000000",
-    "cell_line_color": "#E0E0E0",
-    "wrong_cell_color": "#FF0000",
+    "letter_cell_color": "#FFFFFF",
+    "empty_cell_color": "#333333",
+    "cell_line_color": "#333333",
+    "written_cell_color": "#8DFFAD",
+    "wrong_cell_color": "#FFA5AF",
     "letter_color": "#000000",
-    "number_color": "#000000"
+    "number_color": "#000000",
+    "cell_stroke_color": "#E0E0E0"
   },
   "labels": {
     "clear_dialog_title": "Warning",
@@ -164,7 +166,8 @@
     "btn_label_yes": "Yes",
     "btn_label_no": "No",
     "reveal_letter": "Reveal letter",
-    "reveal_word": "Reveal word",
+    "reveal_word": "Solve word",
+    "check_word": "Check word",
     "submit_answer": "Answer"
   }
 }

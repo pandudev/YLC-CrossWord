@@ -1,9 +1,12 @@
 $(document).ready(function () {
+  $("#btn_start").hover(function () {
+    console.log("sd");
+  });
   $("#btn_menu_check_trigger").click(function () {
-    $(".action-hover-setting").removeClass("show");
-    $("#btn_menu_setting > img").attr("src", "./images/button_setting.png");
-    $(".action-hover").toggleClass("show");
-    if ($(".action-hover").hasClass("show")) {
+    $(".action-hover--setting").removeClass("show");
+    $("#btn_menu_setting > img").attr("src", "./images/cog.png");
+    $(".action-hover--check").toggleClass("show");
+    if ($(".action-hover--check").hasClass("show")) {
       $("#btn_menu_check_trigger > img").attr("src", "./images/close.png");
     } else {
       $("#btn_menu_check_trigger > img").attr("src", "./images/check.png");
@@ -11,13 +14,13 @@ $(document).ready(function () {
   });
 
   $("#btn_menu_setting").click(function () {
-    $(".action-hover-setting").toggleClass("show");
-    $(".action-hover").removeClass("show");
+    $(".action-hover--setting").toggleClass("show");
+    $(".action-hover--check").removeClass("show");
     $("#btn_menu_check_trigger > img").attr("src", "./images/check.png");
-    if ($(".action-hover-setting").hasClass("show")) {
-      $("#btn_menu_setting > img").attr("src", "./images/close-red.png");
+    if ($(".action-hover--setting").hasClass("show")) {
+      $("#btn_menu_setting > img").attr("src", "./images/close.png");
     } else {
-      $("#btn_menu_setting > img").attr("src", "./images/button_setting.png");
+      $("#btn_menu_setting > img").attr("src", "./images/cog.png");
     }
   });
 
@@ -28,7 +31,7 @@ $(document).ready(function () {
 
   $("#continue-button").click(function () {
     start();
-    $(".timer-icon").attr("src", "./images/icon/pause.png");
+    $(".timer-icon").attr("src", "./images/pause.png");
     $(".timer-icon").removeClass("paused");
     $(".timer-count").removeClass("paused");
     $("#pause-modal").removeClass("show");
@@ -42,7 +45,7 @@ $(document).ready(function () {
     $("#timer-button").attr("disabled", true);
     $(".timer-count").addClass("paused");
     $(".timer-icon").addClass("paused");
-    $(".timer-icon").attr("src", "./images/icon/play.png");
+    $(".timer-icon").attr("src", "./images/play.png");
     $(".timer-icon").addClass("play");
     $("#pause-modal").addClass("show");
     $(".content").addClass("disabled");
