@@ -32,7 +32,13 @@ $(document).ready(function () {
 
   $("#continue-button").click(function () {
     start();
-    reset();
+    $(".timer-icon").attr("src", "./images/pause.png");
+    $(".timer-icon").removeClass("paused");
+    $(".timer-count").removeClass("paused");
+    $("#pause-modal").removeClass("show");
+    $(".content").removeClass("disabled");
+    $("#timer-button").attr("disabled", false);
+    $("#crossword").removeClass("disabled");
   });
 
   $("#timer-button").click(function () {

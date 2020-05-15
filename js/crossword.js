@@ -251,6 +251,7 @@ function clearBoard() {
     currentCache = [];
     selectFirstWord();
     reset();
+    pause();
     start();
     $(".action-hover").removeClass("show");
     $("#btn_menu_check_trigger > img").attr("src", "./images/check.png");
@@ -259,6 +260,11 @@ function clearBoard() {
     $(".game-hint").removeClass("show");
     $("#pause-modal").removeClass("show");
     $("#crossword").removeClass("disabled");
+    $(".timer-icon").attr("src", "./images/pause.png");
+    $(".timer-icon").removeClass("paused");
+    $(".timer-count").removeClass("paused");
+    $(".content").removeClass("disabled");
+    $("#timer-button").attr("disabled", false);
   }
 
   // $("#btn-yes").click(function () {
