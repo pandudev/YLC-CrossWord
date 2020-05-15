@@ -1,7 +1,8 @@
 $(document).ready(function () {
-  $("#btn_start").hover(function () {
-    console.log("sd");
-  });
+  // $("#btn_menu_clear").click(function () {
+  //   $("#pause-modal").removeClass("show");
+  //   $("#crossword").removeClass("disabled");
+  // });
   $("#btn_menu_check_trigger").click(function () {
     $(".action-hover--setting").removeClass("show");
     $("#btn_menu_setting > img").attr("src", "./images/cog.png");
@@ -31,13 +32,7 @@ $(document).ready(function () {
 
   $("#continue-button").click(function () {
     start();
-    $(".timer-icon").attr("src", "./images/pause.png");
-    $(".timer-icon").removeClass("paused");
-    $(".timer-count").removeClass("paused");
-    $("#pause-modal").removeClass("show");
-    $(".content").removeClass("disabled");
-    $("#timer-button").attr("disabled", false);
-    $("#crossword").removeClass("disabled");
+    reset();
   });
 
   $("#timer-button").click(function () {

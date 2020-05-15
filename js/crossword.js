@@ -251,11 +251,14 @@ function clearBoard() {
     currentCache = [];
     selectFirstWord();
     reset();
+    start();
     $(".action-hover").removeClass("show");
     $("#btn_menu_check_trigger > img").attr("src", "./images/check.png");
     $(".action-hover-setting").removeClass("show");
-    $("#btn_menu_setting > img").attr("src", "./images/button_setting.png");
+    $("#btn_menu_setting > img").attr("src", "./images/cog.png");
     $(".game-hint").removeClass("show");
+    $("#pause-modal").removeClass("show");
+    $("#crossword").removeClass("disabled");
   }
 
   // $("#btn-yes").click(function () {

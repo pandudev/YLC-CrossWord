@@ -34,6 +34,13 @@ function reset() {
   xsec.innerHTML = sec;
   xmins.innerHTML = mins;
   xhour.innerHTML = hour;
+  $(".timer-icon").attr("src", "./images/pause.png");
+  $(".timer-icon").removeClass("paused");
+  $(".timer-count").removeClass("paused");
+  $("#pause-modal").removeClass("show");
+  $(".content").removeClass("disabled");
+  $("#timer-button").attr("disabled", false);
+  $("#crossword").removeClass("disabled");
 }
 
 function startTimer() {
