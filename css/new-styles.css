@@ -257,7 +257,6 @@ a {
 
 .action-hover {
   top: -1300px;
-  height: 500px;
   position: absolute;
   z-index: 90;
   transition: top 0.3s ease;

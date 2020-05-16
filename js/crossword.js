@@ -618,8 +618,17 @@ function selectClue(clue, resizing) {
     gridContainer.parent.update();
     $(".game-hint").removeClass("show");
   }
+}
 
-  $("#header_clue").html(getClueByNumber(selectedWord));
+function showHint() {
+  var answer = getAnswer();
+  var result =
+    "First letter is " +
+    answer[0] +
+    ". Last letter is " +
+    answer[answer.length - 1];
+
+  $("#header_clue").html(result);
 }
 
 function findWordCells(cell, horizontal) {
@@ -874,6 +883,7 @@ function setEvents() {
 
   $("#btn_menu_show_hint").click(function (e) {
     $("#game-hint").addClass("show");
+    showHint();
   });
 
   $("#btn_menu_reveal_letter").click(function (e) {
@@ -1139,6 +1149,17 @@ function deselectWord() {
 
   stage.update();
   $("#header_clue").text("");
+}
+
+function getAnswer() {
+  var answer = [];
+  selectedCell = selectedCells[0];
+  for (var i = 0; i < selectedCells.length; i++) {
+    var cell = selectedCells[i];
+    var correctCell = solvedState[cell.gridX][cell.gridY];
+    answer.push(correctCell.letter);
+  }
+  return answer;
 }
 
 function revealCurrentWord(focusNextCell) {

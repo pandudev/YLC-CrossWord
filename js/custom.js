@@ -1,8 +1,4 @@
 $(document).ready(function () {
-  // $("#btn_menu_clear").click(function () {
-  //   $("#pause-modal").removeClass("show");
-  //   $("#crossword").removeClass("disabled");
-  // });
   $("#btn_menu_check_trigger").click(function () {
     $(".action-hover--setting").removeClass("show");
     $("#btn_menu_setting > img").attr("src", "./images/cog.png");
